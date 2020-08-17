@@ -1,9 +1,10 @@
 steps:
-
-    - id: "Buildando X Soma.go"
-      name: "gcr.io/cloud-builders/go"
-      args: ['exec', 'CGO_ENABLED=0', 'GOOS=linux', 'GOPATH=$GOPATH', 'go', 'build','-ldflags="-s -w"']
-
-    - id: "Teste Unitario Soma.go"
-      name: "gcr.io/cloud-builders/go"
-      args: ['exec', 'go', 'test']
+    - name: 'gcr.io/cloud-builders/go'
+      args: ['install', '.']
+      env: ['PROJECT_ROOT=soma']
+    - name: 'gcr.io/cloud-builders/go'
+      args: ['test', 'soma']
+      env: ['PROJECT_ROOT=hello']
+    - name: 'gcr.io/cloud-builders/docker'
+      args: ['build', '--tag=gcr.io/$PROJECT_ID/soma', '.']
+    images: ['gcr.io/$PROJECT_ID/soma']
