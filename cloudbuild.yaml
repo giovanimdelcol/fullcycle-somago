@@ -1,0 +1,9 @@
+steps:
+
+    - id: "Buildando Soma.go"
+      name: "gcr.io/cloud-builders/go"
+      args: ['exec', 'CGO_ENABLED=0', 'GOOS=linux', 'GOPATH=$GOPATH', 'go', 'build','-ldflags="-s -w"']
+
+    - id: "Teste Unitario Soma.go"
+      name: "gcr.io/cloud-builders/go"
+      args: ['exec', 'go', 'test']
